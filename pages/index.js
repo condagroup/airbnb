@@ -11,7 +11,7 @@ export default function Home({exploreData, CartData}) {
     <div>
       <Head>
         <title>landbnb</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="https://ebenezersuites.com/wp-content/uploads/2016/06/airbnb-logo-266x300@2x.png" />
       </Head>
 
       {/* header */}
