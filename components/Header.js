@@ -1,7 +1,32 @@
-import React from 'react'
+import React, { useState } from "react";
 import Image from 'next/image'
+import 'react-date-range/dist/styles.css'; // main style file
+import 'react-date-range/dist/theme/default.css'; // theme css file
+import { DateRangePicker } from 'react-date-range';
+
 
 function Header() {
+    // const [searchInput, setSearchInput] = useState('')
+
+    const [searchInput, setsearchInput] = useState('');
+    const [StartDate, setstartDate] = useState(new Date());
+    const [EndDate, setendDate] = useState(new Date());
+
+    const [NoOfGuest, setNoOfGuest] = useState(1)
+
+    const handleSelect = (ranges) =>{
+        console.log(ranges);
+        setstartDate(ranges.selection.setDate)
+        setendDate(ranges.selection.endDate)
+      }
+
+    const selectionRange = {
+        startDate: StartDate,
+        endDate: EndDate,
+        key: 'selection'
+    };
+
+
     return (
         <header className="sticky left-0 top-0 z-50 grid grid-cols-3 bg-white shadow-md p-3
         md:p-5
@@ -22,13 +47,16 @@ function Header() {
             {/* Middle Search */}
             <div className="seasch flex rounded-full md:border-2 p-1 
             focus-within:shadow-md duration-700">
-                <input type="text" placeholder="Search..." className="
+                <input 
+                value={searchInput}
+                onChange={(e) =>setsearchInput(e.target.value)}
+                type="text" placeholder="Search..." className="
                 px-2 outline-none flex-grow rounded-full"/>
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-9 w-9 p-2 bg-red-400 rounded-full text-white hidden md:inline-flex" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
             </div>
-
+            {/* Right menue icons */}
             <div className="flex place-items-center space-x-4 justify-end text-gray-500">
                 <p className="hidden md:inline">Become a host</p>
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -44,9 +72,30 @@ function Header() {
                     </svg>
                 </div>
             </div>
-
+        {searchInput && 
+        <div className="flex flex-col col-span-3 mx-auto mt-3">
+            <DateRangePicker
+                ranges={[selectionRange]}
+                minDate={new Date()}
+                rangeColors={["#fd5b61"]}
+                onChange={handleSelect}
+            />
+            <div className="flex place-items-center">
+                <h1 className="text-2xl pl-2 flex-grow">Number of Guests</h1>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                <input type="number" className="w-12 pl-2" 
+                onChange={(e) =>setNoOfGuest(e.target.value)}
+                min={1}
+                value={NoOfGuest}/>
+            </div>
+            <div className="flex pt-5">
+                <button className="flex-grow" onClick={()=>setsearchInput('')}>Cancel</button>
+                <button className="flex-grow text-red-500 flex place-content-center">Search<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg></button>
+            </div>
+        </div>
+        }
         </header>
     )
 }
 
-export default Header
+export default Header   
