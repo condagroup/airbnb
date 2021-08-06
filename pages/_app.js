@@ -1,6 +1,6 @@
 import 'tailwindcss/tailwind.css'
 import ProgressBar from "@badrap/bar-of-progress";
-import Router from "next/Router";
+import router from "next/router";
 
 
 
