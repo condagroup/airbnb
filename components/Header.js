@@ -3,6 +3,8 @@ import Image from 'next/image'
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { DateRangePicker } from 'react-date-range';
+import { useRouter } from "next/dist/client/router";
+import { format } from "date-fns";
 
 
 function Header() {
@@ -11,22 +13,36 @@ function Header() {
     const [searchInput, setsearchInput] = useState('');
     const [StartDate, setstartDate] = useState(new Date());
     const [EndDate, setendDate] = useState(new Date());
-
     const [NoOfGuest, setNoOfGuest] = useState(1)
 
-    const handleSelect = (ranges) =>{
-        console.log(ranges);
-        setstartDate(ranges.selection.setDate)
-        setendDate(ranges.selection.endDate)
-      }
+    const router = useRouter()
 
+    const handleSelect = (ranges) =>{
+        // console.log(ranges);
+        
+        setstartDate(ranges.selection.startDate)
+        setendDate(ranges.selection.endDate)
+    }
+      
     const selectionRange = {
-        startDate: StartDate,
+        startDate:  StartDate,
         endDate: EndDate,
         key: 'selection'
     };
+        
+    const search = (ranges) =>{
+        router.push({
+            pathname:"/search",
+            query: {
+                Location: searchInput,
+                Guest:NoOfGuest,
+                StartDate: format(StartDate, "dd.MM.yy"),
+                EndDate: format(EndDate, "dd.MM.yy")
+            }
+        })
+    }
 
-
+    // router.push("/")
     return (
         <header className="sticky left-0 top-0 z-50 grid grid-cols-3 bg-white shadow-md p-3
         md:p-5
@@ -34,13 +50,15 @@ function Header() {
         ">
 
             {/* Left Logo */}
-            <div className=" Logo  relative flex item-center h-10 cursor-pointer p-3">
+            <div
+            className=" Logo  relative flex item-center h-10 cursor-pointer p-3">
 
                 <Image
                     src="https://links.papareact.com/qd3"
                     layout="fill"
                     objectFit="contain"
                     objectPosition="left"
+                    onclick={() => router.push("/")}
                     
                 />
             </div>
@@ -90,7 +108,9 @@ function Header() {
             </div>
             <div className="flex pt-5">
                 <button className="flex-grow" onClick={()=>setsearchInput('')}>Cancel</button>
-                <button className="flex-grow text-red-500 flex place-content-center">Search<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg></button>
+                <button className="flex-grow text-red-500 flex place-content-center"
+                onClick={search}
+                >Search<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg></button>
             </div>
         </div>
         }
