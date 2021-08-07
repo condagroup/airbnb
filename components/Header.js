@@ -54,7 +54,7 @@ function Header() {
             className=" Logo  relative flex item-center h-10 cursor-pointer p-3">
 
                 <Image
-                    src="https://links.papareact.com/qd3"
+                    src="/header-logo.png"
                     layout="fill"
                     objectFit="contain"
                     objectPosition="left"
