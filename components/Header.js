@@ -97,6 +97,7 @@ function Header() {
                 minDate={new Date()}
                 rangeColors={["#fd5b61"]}
                 onChange={handleSelect}
+                className="w-fill"
             />
             <div className="flex place-items-center">
                 <h1 className="text-2xl pl-2 flex-grow">Number of Guests</h1>

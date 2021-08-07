@@ -6,6 +6,7 @@ function Smallcard({ img,location, distance}) {
         <div className="flex m-2 rounded-lg 
         transition transform
         duraton-500
+        cursor-pointer 
         hover:scale-105
         hover:shadow-md
         hover:bg-gray-100

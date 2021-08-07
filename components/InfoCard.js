@@ -3,7 +3,12 @@ import Image from 'next/image'
 
 function InfoCard({img, location, title, description, star, price, total}) {
     return (
-        <div className="rounded-md shadow-md mb-5 flex">
+        <div className="rounded-md shadow-md mb-5 flex
+        cursor-pointer
+        hover:scale-105
+        active:scale-100
+        hover:shadow-lg
+        duration-200">
             <div
             className="Logo relative flex item-center p-3 
             h-fill w-40
