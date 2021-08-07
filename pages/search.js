@@ -28,7 +28,13 @@ function search({SearchResult}) {
             {/* Main */}
             <div className="flex">
                 {/* Results */}
-                <section className="p-7 flex-1">
+                <section className="flex-1
+                p-7
+                md:p-10
+                lg:p-10
+                xl:p-16
+                2xl:p-20
+                ">
                     <p className="text-sm">300+ stays · {StartDate} - {EndDate} · {Guest} guests</p>
                     <h1 className="text-3xl font-semibold mt-2 mb-6">
                         Stays in {Location}
